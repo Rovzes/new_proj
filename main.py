@@ -4,12 +4,13 @@ import random
 from PyQt5 import uic
 from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtWidgets import QDialog, QApplication
+from UI import Ui_Dialog
 
 
-class Example(QDialog):
+class MyWidget(QDialog, Ui_Dialog):
     def __init__(self):
         super().__init__()
-        uic.loadUi("UI.ui", self)
+        self.setupUi(self)
 
         self.do_paint = False
 
@@ -31,12 +32,16 @@ class Example(QDialog):
         y = random.randint(0, self.size().height())
         s = random.randint(0, self.size().height() // 2)
 
-        qp.setBrush(QColor(255, 255, 0))
+        r = random.randint(0, 255)
+        g = random.randint(0, 255)
+        b = random.randint(0, 255)
+
+        qp.setBrush(QColor(r, g, b))
         qp.drawEllipse(x, y, s, s)
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    ex = Example()
+    ex = MyWidget()
     ex.show()
     sys.exit(app.exec())
